@@ -10,9 +10,11 @@ src/
     ├── common/
     │   ├── constants/
     │   ├── dependency_injectors/
+    │   ├── enums/
     │   ├── extensions/
     │   ├── results/
     │   ├── routes/
+    │   ├── schemas/
     │   ├── services/
     │   ├── states/
     │   └── widgets/
