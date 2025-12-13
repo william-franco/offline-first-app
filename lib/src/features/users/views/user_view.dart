@@ -21,7 +21,18 @@ class _UserViewState extends State<UserView> {
   @override
   void initState() {
     super.initState();
-    widget.userViewModel.getAllUsers();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _getAllUsers();
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  Future<void> _getAllUsers() async {
+    await widget.userViewModel.getAllUsers();
   }
 
   @override
@@ -33,7 +44,7 @@ class _UserViewState extends State<UserView> {
         actions: [
           RefreshButtonWidget(
             onPressed: () async {
-              await widget.userViewModel.getAllUsers();
+              await _getAllUsers();
             },
           ),
           IconButton(
@@ -47,7 +58,7 @@ class _UserViewState extends State<UserView> {
       body: Center(
         child: RefreshIndicatorWidget(
           onRefresh: () async {
-            await widget.userViewModel.getAllUsers();
+            await _getAllUsers();
           },
           child: ListenableBuilder(
             listenable: widget.userViewModel,
