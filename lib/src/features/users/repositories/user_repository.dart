@@ -1,5 +1,5 @@
 import 'package:offline_first_app/src/common/constants/api_constant.dart';
-import 'package:offline_first_app/src/common/results/result.dart';
+import 'package:offline_first_app/src/common/patterns/result_pattern.dart';
 import 'package:offline_first_app/src/common/services/connection_service.dart';
 import 'package:offline_first_app/src/common/services/http_service.dart';
 import 'package:offline_first_app/src/features/users/models/user_model.dart';

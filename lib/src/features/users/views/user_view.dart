@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:offline_first_app/src/common/states/state.dart';
+import 'package:offline_first_app/src/common/patterns/app_state_pattern.dart';
 import 'package:offline_first_app/src/common/widgets/refresh_button_widget.dart';
 import 'package:offline_first_app/src/common/widgets/refresh_indicator_widget.dart';
 import 'package:offline_first_app/src/common/widgets/skeleton_refresh_widget.dart';
