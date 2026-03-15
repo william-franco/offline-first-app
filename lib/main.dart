@@ -1,6 +1,8 @@
 import 'package:offline_first_app/src/common/dependency_injectors/dependency_injector.dart';
 import 'package:offline_first_app/src/common/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:offline_first_app/src/common/state_management/state_management.dart';
+import 'package:offline_first_app/src/features/settings/models/setting_model.dart';
 import 'package:offline_first_app/src/features/settings/view_models/setting_view_model.dart';
 
 Future<void> main() async {
@@ -26,15 +28,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Offline First App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(useMaterial3: true),
-      darkTheme: ThemeData.dark(useMaterial3: true),
-      themeMode: settingViewModel.settingModel.isDarkTheme
-          ? ThemeMode.dark
-          : ThemeMode.light,
-      routerConfig: appRoutes.routes,
+    return StateBuilderWidget<SettingViewModel, SettingModel>(
+      viewModel: settingViewModel,
+      builder: (context, settingModel) {
+        return MaterialApp.router(
+          title: 'Offline First App',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData.light(useMaterial3: true),
+          darkTheme: ThemeData.dark(useMaterial3: true),
+          themeMode: settingModel.isDarkTheme
+              ? ThemeMode.dark
+              : ThemeMode.light,
+          routerConfig: appRoutes.routes,
+        );
+      },
     );
   }
 }

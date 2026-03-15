@@ -1,14 +1,15 @@
 import 'package:offline_first_app/src/common/patterns/app_state_pattern.dart';
+import 'package:offline_first_app/src/common/state_management/state_management.dart';
 import 'package:offline_first_app/src/features/users/models/user_model.dart';
 import 'package:offline_first_app/src/features/users/repositories/user_repository.dart';
 import 'package:flutter/foundation.dart';
 
-typedef _ViewModel = ChangeNotifier;
+typedef _ViewModel = StateManagement<UsersState>;
 
 typedef UsersState = AppState<List<UserModel>>;
 
 abstract interface class UserViewModel extends _ViewModel {
-  UsersState get userState;
+  UserViewModel(super.initialState);
 
   Future<void> getAllUsers();
 }
@@ -16,12 +17,7 @@ abstract interface class UserViewModel extends _ViewModel {
 class UserViewModelImpl extends _ViewModel implements UserViewModel {
   final UserRepository userRepository;
 
-  UserViewModelImpl({required this.userRepository});
-
-  UsersState _userState = InitialState();
-
-  @override
-  UsersState get userState => _userState;
+  UserViewModelImpl({required this.userRepository}) : super(InitialState());
 
   @override
   Future<void> getAllUsers() async {
@@ -38,10 +34,7 @@ class UserViewModelImpl extends _ViewModel implements UserViewModel {
   }
 
   void _emit(UsersState newState) {
-    if (_userState != newState) {
-      _userState = newState;
-      notifyListeners();
-      debugPrint('User state: $_userState');
-    }
+    emitState(newState);
+    debugPrint('User state: $state');
   }
 }
