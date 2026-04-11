@@ -4,20 +4,21 @@ import 'package:offline_first_app/src/features/users/models/user_model.dart';
 import 'package:offline_first_app/src/features/users/repositories/user_repository.dart';
 import 'package:flutter/foundation.dart';
 
-typedef _ViewModel = StateManagement<UsersState>;
-
 typedef UsersState = AppState<List<UserModel>>;
 
-abstract interface class UserViewModel extends _ViewModel {
-  UserViewModel(super.initialState);
+typedef _ViewModel = StateManagement<UsersState>;
 
+abstract interface class UserViewModel extends _ViewModel {
   Future<void> getAllUsers();
 }
 
 class UserViewModelImpl extends _ViewModel implements UserViewModel {
   final UserRepository userRepository;
 
-  UserViewModelImpl({required this.userRepository}) : super(InitialState());
+  UserViewModelImpl({required this.userRepository});
+
+  @override
+  UsersState build() => InitialState();
 
   @override
   Future<void> getAllUsers() async {
