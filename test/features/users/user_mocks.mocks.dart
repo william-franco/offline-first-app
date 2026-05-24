@@ -6,12 +6,14 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i9;
+import 'package:mockito/src/dummies.dart' as _i10;
 import 'package:offline_first_app/src/common/patterns/result_pattern.dart'
     as _i8;
 import 'package:offline_first_app/src/common/services/connection_service.dart'
     as _i2;
 import 'package:offline_first_app/src/common/services/http_service.dart' as _i4;
+import 'package:offline_first_app/src/features/users/exceptions/user_exception.dart'
+    as _i9;
 import 'package:offline_first_app/src/features/users/models/user_model.dart'
     as _i6;
 import 'package:offline_first_app/src/features/users/repositories/user_repository.dart'
@@ -125,16 +127,18 @@ class MockUserRepository extends _i1.Mock implements _i7.UserRepository {
   }
 
   @override
-  _i3.Future<_i8.Result<List<_i6.UserModel>, Exception>> findAllUsers() =>
+  _i3.Future<_i8.Result<List<_i6.UserModel>, _i9.UserException>>
+  findAllUsers() =>
       (super.noSuchMethod(
             Invocation.method(#findAllUsers, []),
             returnValue:
-                _i3.Future<_i8.Result<List<_i6.UserModel>, Exception>>.value(
-                  _i9.dummyValue<_i8.Result<List<_i6.UserModel>, Exception>>(
-                    this,
-                    Invocation.method(#findAllUsers, []),
-                  ),
+                _i3.Future<
+                  _i8.Result<List<_i6.UserModel>, _i9.UserException>
+                >.value(
+                  _i10.dummyValue<
+                    _i8.Result<List<_i6.UserModel>, _i9.UserException>
+                  >(this, Invocation.method(#findAllUsers, [])),
                 ),
           )
-          as _i3.Future<_i8.Result<List<_i6.UserModel>, Exception>>);
+          as _i3.Future<_i8.Result<List<_i6.UserModel>, _i9.UserException>>);
 }

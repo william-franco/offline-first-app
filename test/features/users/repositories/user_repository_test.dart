@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:offline_first_app/src/common/patterns/result_pattern.dart';
+import 'package:offline_first_app/src/features/users/exceptions/user_exception.dart';
 import 'package:offline_first_app/src/features/users/models/user_model.dart';
 import 'package:offline_first_app/src/features/users/repositories/user_repository.dart';
 
@@ -102,9 +103,9 @@ void main() {
         final result = await repository.findAllUsers();
 
         // assert
-        expect(result, isA<SuccessResult<List<UserModel>, Exception>>());
+        expect(result, isA<SuccessResult<List<UserModel>, UserException>>());
         final users =
-            (result as SuccessResult<List<UserModel>, Exception>).value;
+            (result as SuccessResult<List<UserModel>, UserException>).value;
         expect(users.length, equals(tRemoteUsers.length));
         expect(users.first.name, equals(tRemoteUsers.first.name));
       });
@@ -149,9 +150,9 @@ void main() {
           final result = await repository.findAllUsers();
 
           // assert
-          expect(result, isA<ErrorResult<List<UserModel>, Exception>>());
+          expect(result, isA<ErrorResult<List<UserModel>, UserException>>());
           final error =
-              (result as ErrorResult<List<UserModel>, Exception>).error;
+              (result as ErrorResult<List<UserModel>, UserException>).error;
           expect(error.toString(), contains('Failed to fetch users: 500'));
         },
       );
@@ -170,7 +171,7 @@ void main() {
           final result = await repository.findAllUsers();
 
           // assert
-          expect(result, isA<ErrorResult<List<UserModel>, Exception>>());
+          expect(result, isA<ErrorResult<List<UserModel>, UserException>>());
         },
       );
     });
@@ -191,9 +192,9 @@ void main() {
           final result = await repository.findAllUsers();
 
           // assert
-          expect(result, isA<ErrorResult<List<UserModel>, Exception>>());
+          expect(result, isA<ErrorResult<List<UserModel>, UserException>>());
           final error =
-              (result as ErrorResult<List<UserModel>, Exception>).error;
+              (result as ErrorResult<List<UserModel>, UserException>).error;
           expect(error.toString(), contains('Device not connected.'));
           verifyNever(mockHttpService.getData(path: anyNamed('path')));
         },
@@ -209,9 +210,9 @@ void main() {
         final result = await repository.findAllUsers();
 
         // assert
-        expect(result, isA<SuccessResult<List<UserModel>, Exception>>());
+        expect(result, isA<SuccessResult<List<UserModel>, UserException>>());
         final users =
-            (result as SuccessResult<List<UserModel>, Exception>).value;
+            (result as SuccessResult<List<UserModel>, UserException>).value;
         expect(users.length, equals(tLocalUsers.length));
         expect(users.first.name, equals(tLocalUsers.first.name));
         verifyNever(mockHttpService.getData(path: anyNamed('path')));
@@ -258,9 +259,9 @@ void main() {
         final result = await repository.findAllUsers();
 
         // assert
-        expect(result, isA<SuccessResult<List<UserModel>, Exception>>());
+        expect(result, isA<SuccessResult<List<UserModel>, UserException>>());
         final users =
-            (result as SuccessResult<List<UserModel>, Exception>).value;
+            (result as SuccessResult<List<UserModel>, UserException>).value;
         expect(users.first.name, equals(tLocalUsers.first.name));
       });
 
@@ -280,9 +281,9 @@ void main() {
           final result = await repository.findAllUsers();
 
           // assert
-          expect(result, isA<ErrorResult<List<UserModel>, Exception>>());
+          expect(result, isA<ErrorResult<List<UserModel>, UserException>>());
           final error =
-              (result as ErrorResult<List<UserModel>, Exception>).error;
+              (result as ErrorResult<List<UserModel>, UserException>).error;
           expect(error.toString(), contains('Unexpected error'));
         },
       );

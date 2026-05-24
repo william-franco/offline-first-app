@@ -2,10 +2,11 @@ import 'package:offline_first_app/src/common/constants/api_constant.dart';
 import 'package:offline_first_app/src/common/patterns/result_pattern.dart';
 import 'package:offline_first_app/src/common/services/connection_service.dart';
 import 'package:offline_first_app/src/common/services/http_service.dart';
+import 'package:offline_first_app/src/features/users/exceptions/user_exception.dart';
 import 'package:offline_first_app/src/features/users/models/user_model.dart';
 import 'package:offline_first_app/src/features/users/services/user_service.dart';
 
-typedef UserResult = Result<List<UserModel>, Exception>;
+typedef UserResult = Result<List<UserModel>, UserException>;
 
 abstract interface class UserRepository {
   Future<UserResult> findAllUsers();
@@ -30,7 +31,7 @@ class UserRepositoryImpl implements UserRepository {
       await connectionService.checkConnection();
 
       if (!connectionService.isConnected && usersLocal.isEmpty) {
-        return ErrorResult(error: Exception('Device not connected.'));
+        return ErrorResult(error: UserException('Device not connected.'));
       }
 
       if (!connectionService.isConnected && usersLocal.isNotEmpty) {
@@ -51,7 +52,7 @@ class UserRepositoryImpl implements UserRepository {
       }
 
       return ErrorResult(
-        error: Exception('Failed to fetch users: ${result.statusCode}'),
+        error: UserException('Failed to fetch users: ${result.statusCode}'),
       );
     } catch (error) {
       final usersLocal = await userLocalService.getUsers();
@@ -60,7 +61,7 @@ class UserRepositoryImpl implements UserRepository {
         return SuccessResult(value: usersLocal);
       }
 
-      return ErrorResult(error: Exception('Unexpected error: $error'));
+      return ErrorResult(error: UserException('Unexpected error: $error'));
     }
   }
 }
