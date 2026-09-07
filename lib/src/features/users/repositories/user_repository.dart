@@ -6,7 +6,7 @@ import 'package:offline_first_app/src/features/users/exceptions/user_exception.d
 import 'package:offline_first_app/src/features/users/models/user_model.dart';
 import 'package:offline_first_app/src/features/users/services/user_service.dart';
 
-typedef UserResult = Result<List<UserModel>, UserException>;
+typedef UserResult = ResultPattern<List<UserModel>, UserException>;
 
 abstract interface class UserRepository {
   Future<UserResult> findAllUsers();

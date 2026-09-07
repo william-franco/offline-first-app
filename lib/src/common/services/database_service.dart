@@ -150,10 +150,9 @@ class DatabaseHelperImpl implements DatabaseHelper {
   final DatabaseTablesService _tablesService;
 
   DatabaseHelperImpl({
-    required DatabaseLocationService locationService,
-    required DatabaseTablesService tablesService,
-  }) : _locationService = locationService,
-       _tablesService = tablesService;
+    required this._locationService,
+    required this._tablesService,
+  });
 
   static Database? _database;
 
@@ -196,10 +195,9 @@ class DatabaseServiceImpl implements DatabaseService {
   final DatabaseTablesService _tablesService;
 
   DatabaseServiceImpl({
-    required DatabaseLocationService locationService,
-    required DatabaseTablesService tablesService,
-  }) : _locationService = locationService,
-       _tablesService = tablesService;
+    required this._locationService,
+    required this._tablesService,
+  });
 
   int version = 1;
   bool forceRecreate = false;

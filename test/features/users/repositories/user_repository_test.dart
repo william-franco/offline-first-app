@@ -307,7 +307,7 @@ void main() {
     });
 
     // ---------------------------------------------------------------------------
-    // findAllUsers — Result.fold integration
+    // findAllUsers — ResultPattern.fold integration
     // ---------------------------------------------------------------------------
 
     group('findAllUsers — fold', () {
