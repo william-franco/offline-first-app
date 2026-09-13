@@ -1,12 +1,40 @@
 # Offline First App
 
-Offline-first data sync demo with SQLite.
+Demonstrates offline-first data access with SQLite as the local source of truth.
+
+User lists and details work without connectivity; remote APIs sync when the network is available.
+
+Repositories and services encapsulate database schema, migrations, and HTTP fallbacks.
+
+Modular users and settings features share common database and networking services.
+
+Includes patterns for seeding, truncation, and batch writes suitable for field apps.
+
+## Structure
+
+```mermaid
+flowchart TB
+  Routes --> UserRoute
+  Routes --> SettingRoute
+  subgraph usersFeature [users]
+    UserRoute --> UserViewModel
+    UserViewModel --> UserRepository
+    UserRepository --> UserService
+  end
+  UserService --> SQLiteDatabase[(SQLite)]
+  UserService --> RemoteHttpApi[Remote HTTP API]
+  subgraph settingsFeature [settings]
+    SettingRoute --> SettingViewModel
+    SettingViewModel --> SettingRepository
+    SettingRepository --> SharedPreferences
+  end
+```
 
 ## Stack
 
 | Technology | Version |
 |------------|---------|
-| Dart SDK | ^3.13.2 |
+| Dart SDK | ^3.13.3 |
 | connectivity_plus | ^7.1.1 |
 | cupertino_icons | ^1.0.8 |
 | dio | ^5.9.2 |
