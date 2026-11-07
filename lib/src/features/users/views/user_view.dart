@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:offline_first_app/src/common/patterns/state_pattern.dart';
 import 'package:offline_first_app/src/common/state_management/state_management.dart';
-import 'package:offline_first_app/src/common/widgets/refresh_button_widget.dart';
-import 'package:offline_first_app/src/common/widgets/refresh_indicator_widget.dart';
-import 'package:offline_first_app/src/common/widgets/skeleton_refresh_widget.dart';
+import 'package:offline_first_app/src/common/design/widgets/refresh_button_widget.dart';
+import 'package:offline_first_app/src/common/design/widgets/refresh_indicator_widget.dart';
+import 'package:offline_first_app/src/common/design/widgets/skeleton_refresh_widget.dart';
 import 'package:offline_first_app/src/features/settings/routes/setting_routes.dart';
 import 'package:offline_first_app/src/features/users/view_models/user_view_model.dart';
 import 'package:flutter/material.dart';
