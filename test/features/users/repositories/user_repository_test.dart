@@ -64,15 +64,13 @@ void main() {
     }
 
     void stubLocalEmpty() {
-      when(
-        mockUserLocalService.getUsers(),
-      ).thenAnswer((_) async => <UserModel>[]);
+      when(mockUserLocalService.getUsers())
+          .thenAnswer((_) async => <UserModel>[]);
     }
 
     void stubLocalUsers() {
-      when(
-        mockUserLocalService.getUsers(),
-      ).thenAnswer((_) async => tLocalUsers);
+      when(mockUserLocalService.getUsers())
+          .thenAnswer((_) async => tLocalUsers);
     }
 
     void stubHttp200() {
@@ -157,23 +155,20 @@ void main() {
         },
       );
 
-      test(
-        'should return ErrorResult when connected but API returns 200 with null data',
-        () async {
-          // arrange
-          stubLocalEmpty();
-          stubConnected();
-          when(
-            mockHttpService.getData(path: anyNamed('path')),
-          ).thenAnswer((_) async => (statusCode: 200, data: null, error: null));
+      test('should return ErrorResult when connected but API returns 200 with null data', () async {
+        // arrange
+        stubLocalEmpty();
+        stubConnected();
+        when(
+          mockHttpService.getData(path: anyNamed('path')),
+        ).thenAnswer((_) async => (statusCode: 200, data: null, error: null));
 
-          // act
-          final result = await repository.findAllUsers();
+        // act
+        final result = await repository.findAllUsers();
 
-          // assert
-          expect(result, isA<ErrorResult<List<UserModel>, UserException>>());
-        },
-      );
+        // assert
+        expect(result, isA<ErrorResult<List<UserModel>, UserException>>());
+      });
     });
 
     // ---------------------------------------------------------------------------
@@ -251,9 +246,8 @@ void main() {
           // The exception is thrown by checkConnection, not getUsers.
           return callCount == 1 ? <UserModel>[] : tLocalUsers;
         });
-        when(
-          mockConnectionService.checkConnection(),
-        ).thenThrow(Exception('Network failure'));
+        when(mockConnectionService.checkConnection())
+            .thenThrow(Exception('Network failure'));
 
         // act
         final result = await repository.findAllUsers();
@@ -270,12 +264,10 @@ void main() {
         'when an exception is thrown and local cache is also empty',
         () async {
           // arrange
-          when(
-            mockUserLocalService.getUsers(),
-          ).thenAnswer((_) async => <UserModel>[]);
-          when(
-            mockConnectionService.checkConnection(),
-          ).thenThrow(Exception('Network failure'));
+          when(mockUserLocalService.getUsers())
+              .thenAnswer((_) async => <UserModel>[]);
+          when(mockConnectionService.checkConnection())
+              .thenThrow(Exception('Network failure'));
 
           // act
           final result = await repository.findAllUsers();
@@ -291,12 +283,10 @@ void main() {
       test('should call getUsers twice when an exception occurs — '
           'once in the try block and once in the catch block', () async {
         // arrange
-        when(
-          mockUserLocalService.getUsers(),
-        ).thenAnswer((_) async => <UserModel>[]);
-        when(
-          mockConnectionService.checkConnection(),
-        ).thenThrow(Exception('Network failure'));
+        when(mockUserLocalService.getUsers())
+            .thenAnswer((_) async => <UserModel>[]);
+        when(mockConnectionService.checkConnection())
+            .thenThrow(Exception('Network failure'));
 
         // act
         await repository.findAllUsers();

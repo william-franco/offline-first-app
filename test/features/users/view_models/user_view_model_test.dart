@@ -14,7 +14,9 @@ void main() {
     late MockUserRepository mockUserRepository;
     late UserViewModel viewModel;
 
-    final dummySuccess = SuccessResult<List<UserModel>, UserException>(value: []);
+    final dummySuccess = SuccessResult<List<UserModel>, UserException>(
+      value: [],
+    );
     final dummyError = ErrorResult<List<UserModel>, UserException>(
       error: UserException('dummy'),
     );
@@ -57,7 +59,10 @@ void main() {
     // ---------------------------------------------------------------------------
 
     test('should start with InitialState', () {
-      expect(viewModel.state, isA<InitialState<List<UserModel>, UserException>>());
+      expect(
+        viewModel.state,
+        isA<InitialState<List<UserModel>, UserException>>(),
+      );
     });
 
     // ---------------------------------------------------------------------------
@@ -68,9 +73,8 @@ void main() {
       test('should emit [LoadingState, SuccessState] '
           'when repository returns SuccessResult', () async {
         // arrange
-        when(
-          mockUserRepository.findAllUsers(),
-        ).thenAnswer((_) async => SuccessResult(value: tUsers));
+        when(mockUserRepository.findAllUsers())
+            .thenAnswer((_) async => SuccessResult(value: tUsers));
 
         final emittedStates = <UsersState>[];
         viewModel.addListener(() => emittedStates.add(viewModel.state));
@@ -80,10 +84,17 @@ void main() {
 
         // assert
         expect(emittedStates.length, equals(2));
-        expect(emittedStates[0], isA<LoadingState<List<UserModel>, UserException>>());
-        expect(emittedStates[1], isA<SuccessState<List<UserModel>, UserException>>());
+        expect(
+          emittedStates[0],
+          isA<LoadingState<List<UserModel>, UserException>>(),
+        );
+        expect(
+          emittedStates[1],
+          isA<SuccessState<List<UserModel>, UserException>>(),
+        );
 
-        final success = emittedStates[1] as SuccessState<List<UserModel>, UserException>;
+        final success =
+            emittedStates[1] as SuccessState<List<UserModel>, UserException>;
         expect(success.data.length, equals(tUsers.length));
         expect(success.data.first.name, equals(tUsers.first.name));
         verify(mockUserRepository.findAllUsers()).called(1);
@@ -95,9 +106,8 @@ void main() {
         final cachedUsers = [
           UserModel(id: 99, name: 'Cached User', username: 'cache'),
         ];
-        when(
-          mockUserRepository.findAllUsers(),
-        ).thenAnswer((_) async => SuccessResult(value: cachedUsers));
+        when(mockUserRepository.findAllUsers())
+            .thenAnswer((_) async => SuccessResult(value: cachedUsers));
 
         final emittedStates = <UsersState>[];
         viewModel.addListener(() => emittedStates.add(viewModel.state));
@@ -106,8 +116,12 @@ void main() {
         await viewModel.getAllUsers();
 
         // assert
-        expect(emittedStates[1], isA<SuccessState<List<UserModel>, UserException>>());
-        final success = emittedStates[1] as SuccessState<List<UserModel>, UserException>;
+        expect(
+          emittedStates[1],
+          isA<SuccessState<List<UserModel>, UserException>>(),
+        );
+        final success =
+            emittedStates[1] as SuccessState<List<UserModel>, UserException>;
         expect(success.data.first.name, equals('Cached User'));
       });
 
@@ -115,7 +129,8 @@ void main() {
           'when repository returns ErrorResult', () async {
         // arrange
         when(mockUserRepository.findAllUsers()).thenAnswer(
-          (_) async => ErrorResult(error: UserException('Device not connected.')),
+          (_) async =>
+              ErrorResult(error: UserException('Device not connected.')),
         );
 
         final emittedStates = <UsersState>[];
@@ -125,10 +140,17 @@ void main() {
         await viewModel.getAllUsers();
 
         // assert
-        expect(emittedStates[0], isA<LoadingState<List<UserModel>, UserException>>());
-        expect(emittedStates[1], isA<ErrorState<List<UserModel>, UserException>>());
+        expect(
+          emittedStates[0],
+          isA<LoadingState<List<UserModel>, UserException>>(),
+        );
+        expect(
+          emittedStates[1],
+          isA<ErrorState<List<UserModel>, UserException>>(),
+        );
 
-        final error = emittedStates[1] as ErrorState<List<UserModel>, UserException>;
+        final error =
+            emittedStates[1] as ErrorState<List<UserModel>, UserException>;
         expect(error.error.message, contains('Device not connected.'));
       });
 
@@ -146,17 +168,20 @@ void main() {
         await viewModel.getAllUsers();
 
         // assert
-        expect(emittedStates[1], isA<ErrorState<List<UserModel>, UserException>>());
-        final error = emittedStates[1] as ErrorState<List<UserModel>, UserException>;
+        expect(
+          emittedStates[1],
+          isA<ErrorState<List<UserModel>, UserException>>(),
+        );
+        final error =
+            emittedStates[1] as ErrorState<List<UserModel>, UserException>;
         expect(error.error.message, contains('Unexpected error'));
       });
 
       test('should emit SuccessState with empty list '
           'when repository returns an empty SuccessResult', () async {
         // arrange
-        when(
-          mockUserRepository.findAllUsers(),
-        ).thenAnswer((_) async => SuccessResult(value: <UserModel>[]));
+        when(mockUserRepository.findAllUsers())
+            .thenAnswer((_) async => SuccessResult(value: <UserModel>[]));
 
         final emittedStates = <UsersState>[];
         viewModel.addListener(() => emittedStates.add(viewModel.state));
@@ -165,7 +190,8 @@ void main() {
         await viewModel.getAllUsers();
 
         // assert
-        final success = emittedStates[1] as SuccessState<List<UserModel>, UserException>;
+        final success =
+            emittedStates[1] as SuccessState<List<UserModel>, UserException>;
         expect(success.data, isEmpty);
       });
 
@@ -173,9 +199,8 @@ void main() {
         'should notify listeners exactly twice per getAllUsers call',
         () async {
           // arrange
-          when(
-            mockUserRepository.findAllUsers(),
-          ).thenAnswer((_) async => SuccessResult(value: tUsers));
+          when(mockUserRepository.findAllUsers())
+              .thenAnswer((_) async => SuccessResult(value: tUsers));
 
           int notifyCount = 0;
           viewModel.addListener(() => notifyCount++);
@@ -202,7 +227,10 @@ void main() {
           await viewModel.getAllUsers();
 
           // assert
-          expect(stateWhileLoading, isA<LoadingState<List<UserModel>, UserException>>());
+          expect(
+            stateWhileLoading,
+            isA<LoadingState<List<UserModel>, UserException>>(),
+          );
         },
       );
 
@@ -210,12 +238,14 @@ void main() {
         'should reset to LoadingState on each new getAllUsers call',
         () async {
           // arrange
-          when(
-            mockUserRepository.findAllUsers(),
-          ).thenAnswer((_) async => SuccessResult(value: tUsers));
+          when(mockUserRepository.findAllUsers())
+              .thenAnswer((_) async => SuccessResult(value: tUsers));
 
           await viewModel.getAllUsers();
-          expect(viewModel.state, isA<SuccessState<List<UserModel>, UserException>>());
+          expect(
+            viewModel.state,
+            isA<SuccessState<List<UserModel>, UserException>>(),
+          );
 
           when(mockUserRepository.findAllUsers()).thenAnswer(
             (_) async => ErrorResult(error: UserException('Server error')),
@@ -225,7 +255,10 @@ void main() {
           await viewModel.getAllUsers();
 
           // assert
-          expect(viewModel.state, isA<ErrorState<List<UserModel>, UserException>>());
+          expect(
+            viewModel.state,
+            isA<ErrorState<List<UserModel>, UserException>>(),
+          );
           verify(mockUserRepository.findAllUsers()).called(2);
         },
       );

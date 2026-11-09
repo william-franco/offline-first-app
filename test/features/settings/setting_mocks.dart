@@ -1,6 +1,7 @@
 import 'package:mockito/annotations.dart';
 import 'package:offline_first_app/src/common/services/storage_service.dart';
+import 'package:offline_first_app/src/common/services/url_launcher_service.dart';
 import 'package:offline_first_app/src/features/settings/repositories/setting_repository.dart';
 
-@GenerateMocks([StorageService, SettingRepository])
+@GenerateMocks([StorageService, SettingRepository, UrlLauncherService])
 void main() {}
