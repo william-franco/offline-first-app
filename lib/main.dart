@@ -1,6 +1,6 @@
 import 'package:offline_first_app/src/common/dependency_injectors/dependency_injector.dart';
 import 'package:offline_first_app/src/common/routes/routes.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:offline_first_app/src/common/state_management/state_management.dart';
 import 'package:offline_first_app/src/features/settings/models/setting_model.dart';
 import 'package:offline_first_app/src/features/settings/view_models/setting_view_model.dart';

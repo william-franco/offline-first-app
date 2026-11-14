@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:offline_first_app/src/common/extensions/platform_extension.dart';
 
 typedef OnRefreshCallback = Future<void> Function();

@@ -6,7 +6,7 @@ import 'package:offline_first_app/src/common/design/widgets/refresh_indicator_wi
 import 'package:offline_first_app/src/common/design/widgets/skeleton_refresh_widget.dart';
 import 'package:offline_first_app/src/features/settings/routes/setting_routes.dart';
 import 'package:offline_first_app/src/features/users/view_models/user_view_model.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:offline_first_app/src/features/users/routes/user_routes.dart';
 
 class UserView extends StatefulWidget {
